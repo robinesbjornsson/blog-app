@@ -1,39 +1,58 @@
-import { createSlice, nanoid, PayloadAction } from '@reduxjs/toolkit'
 import { RootState } from '../../app/store'
+import {
+  createAsyncThunk,
+  createSlice,
+  nanoid,
+  PayloadAction,
+} from '@reduxjs/toolkit'
 
-interface Post {
+import axios, { AxiosError } from 'axios'
+const POSTS_URL = 'https://jsonplaceholder.typicode.com/posts'
+
+interface Comment {
+  postId: PostType['id']
+  id: number
+  name: string
+  email: string
+  body: string
+}
+
+interface PostType {
   id: string
   title: string
   content: string
-  userId?: any
+  userId: any
+  comments?: Comment[]
 }
 
 export interface PostState {
-  post: Post[]
+  posts: PostType[]
+  status: string
+  error: any
 }
 
 const initialState: PostState = {
-  post: [
-    {
-      id: '1',
-      title: 'Post one',
-      content: 'im having fun',
-    },
-    {
-      id: '2',
-      title: 'Post two',
-      content: 'im having fun',
-    },
-  ],
+  posts: [],
+  status: 'idle',
+  error: null,
 }
+
+export const fetchPosts = createAsyncThunk('posts/fetchPosts', async () => {
+  try {
+    const response = await axios.get(POSTS_URL)
+    return [...response.data] //can return response.data without spreading into new array
+  } catch (error: any) {
+    return error.message
+  }
+})
 
 export const postSlice = createSlice({
   name: 'post',
   initialState,
   reducers: {
     addPost: {
-      reducer(state, action: PayloadAction<Post>) {
-        state.post.push(action.payload)
+      reducer(state, action: PayloadAction<PostType>) {
+        state.posts.push(action.payload)
       },
       prepare(title, content, userId) {
         return {
@@ -47,9 +66,25 @@ export const postSlice = createSlice({
       },
     },
   },
+  extraReducers(builder) {
+    builder
+      .addCase(fetchPosts.pending, (state, action) => {
+        state.status = 'loading'
+      })
+      .addCase(fetchPosts.fulfilled, (state, action) => {
+        state.status = 'succeeded'
+        state.posts = state.posts.concat(action.payload)
+      })
+      .addCase(fetchPosts.rejected, (state, action) => {
+        state.status = 'failed'
+        state.error = action.error.message
+      })
+  },
 })
 
-export const selectAllPosts = (state: RootState) => state.posts.post
+export const getPosts = (state: RootState) => state.posts.posts
+export const getPostsStatus = (state: RootState) => state.posts.status
+export const getPostsError = (state: RootState) => state.posts.error
 
 export const { addPost } = postSlice.actions
 
