@@ -1,37 +1,48 @@
-import { createSlice } from '@reduxjs/toolkit'
+import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
-export interface Post {
+export type Post = {
   id: string
   title: string
   content: string
 }
 
+
 export interface PostState {
-  posts: Post[]
+  value: Post[]
 }
 
 const initialState: PostState = {
-  posts: [
-    {
-      id: '1',
-      title: 'Learning Redux Toolkit',
-      content: "I've heard good things.",
-    },
-    {
-      id: '2',
-      title: 'Slices...',
-      content: 'The more I say slice, the more I want pizza.',
-    },
+  value: [
+
   ],
 }
 
-const postSlice = createSlice({
-  name: 'posts',
+/* 
+    {
+      id: '1',
+      title: 'Post one',
+      content: 'im having fun',
+    },
+    {
+      id: '2',
+      title: 'Post two',
+      content: 'im having fun',
+    },
+
+*/
+
+export const postSlice = createSlice({
+  name: 'post',
   initialState,
-  reducers: {},
+  reducers: {
+    addPost: (state, action: PayloadAction<Post>) => {
+      state.value.push(action.payload)
+    },
+  },
 })
 
+export const selectAllposts = (state: PostState) => state.value
 
-export const selectAllposts = (state: PostState) => state.posts
+export const { addPost } = postSlice.actions
 
 export default postSlice.reducer

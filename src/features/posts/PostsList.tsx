@@ -1,12 +1,11 @@
 import { useSelector } from 'react-redux'
 import { RootState } from '../../app/store'
-import { selectAllposts, PostState } from './postsSlice'
-
+//import { selectAllposts } from './postsSlice'
 
 const PostsList = () => {
-  //const posts = useSelector((state: RootState) => state.posts.posts)
-  const posts = useSelector(selectAllposts)
-  console.log(posts)
+  const posts = useSelector((state: RootState) => state.post.value)
+
+
   const renderedPosts = posts.map((post) => (
     <article key={post.id}>
       <h3>{post.title}</h3>
