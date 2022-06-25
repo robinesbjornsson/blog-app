@@ -1,44 +1,51 @@
-import React, { useState } from 'react'
 import { nanoid } from '@reduxjs/toolkit'
-import { addPost } from './postsSlice'
-import { useAppDispatch } from '../../app/hooks'
+import React, { useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { RootState } from '../../app/store'
+import { addPost } from './postSlice'
 
-const AddPostForm = (): JSX.Element => {
-  const dispatch = useAppDispatch()
+function AddCustomerForm() {
+  const dispatch = useDispatch()
+
   const [title, setTitle] = useState('')
   const [content, setContent] = useState('')
 
-  const onSavePostClicked = () => {
-    dispatch(addPost({ id: nanoid(), title: title, content: content }))
-  }
+  const posts = useSelector((state: RootState) => state.post.value)
+
 
   return (
-    <section>
-      <form action=''>
-        <label htmlFor=''> Post Title: </label>
+    <div>
+      <div>
         <input
-          type='text'
-          id='postTitle'
-          name='postTitle'
           value={title}
           onChange={(e) => {
             setTitle(e.target.value)
           }}
         />
 
-        <label htmlFor='postContent'> Content: </label>
-        <textarea
-          name='postContent'
-          id='postContent'
+        <input
           value={content}
           onChange={(e) => {
             setContent(e.target.value)
           }}
         />
-        <button onClick={onSavePostClicked}>Save Post</button>
-      </form>
-    </section>
+
+        <button
+            onClick={() => {
+            dispatch(
+              addPost({
+                id: nanoid(),
+                title,
+                content,
+              })
+            )
+          }}
+        >
+          Add
+        </button> 
+      </div>
+    </div>
   )
 }
 
-export default AddPostForm
+export default AddCustomerForm
