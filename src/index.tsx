@@ -12,6 +12,7 @@ const container = document.getElementById('root')!;
 const root = createRoot(container);
 
 store.dispatch(fetchUsers());
+store.dispatch(fetchPosts());
 
 
 root.render(
