@@ -129,6 +129,7 @@ export const postSlice = createSlice({
         state.posts.push(action.payload)
       })
       .addCase(updatePost.fulfilled, (state, action) => {
+        console.log('UPDATE POST CASE', action.payload)
         if (!action.payload?.id) {
           console.log('Update could not complete')
           return

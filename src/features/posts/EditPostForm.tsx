@@ -85,7 +85,7 @@ const EditPostForm = () => {
           id='postAuthor'
           value={userId}
           onChange={(e) => {
-            setUserId(e.target.value)
+            setUserId(Number(e.target.value))
           }}
         >
           <option value=''></option>
