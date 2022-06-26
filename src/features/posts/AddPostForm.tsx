@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
 import { useAppDispatch } from '../../app/hooks'
 import { getUsers } from '../users/userSlice'
 import { addNewPost, addPost } from './postSlice'
@@ -14,7 +15,7 @@ function AddCustomerForm() {
 
   const users = useSelector(getUsers)
 
-
+  const navigate = useNavigate()
   //const canSave = Boolean(title) && Boolean(content) && Boolean(userId)
 
   const handleSubmit = (e: React.SyntheticEvent) => {
@@ -25,6 +26,7 @@ function AddCustomerForm() {
       setTitle('')
       setContent('')
       setUserId('')
+      navigate('/')
     } catch (error) {
       console.error('failedto save the post', error)
 
