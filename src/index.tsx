@@ -6,13 +6,14 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import './index.css';
 import { fetchUsers } from './features/users/userSlice';
-import { fetchPosts } from './features/posts/postSlice';
+import { fetchPosts, fetchComments } from './features/posts/postSlice';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 const container = document.getElementById('root')!;
 const root = createRoot(container);
 
 store.dispatch(fetchUsers());
 store.dispatch(fetchPosts());
+store.dispatch(fetchComments());
 
 
 root.render(

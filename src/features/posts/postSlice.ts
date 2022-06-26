@@ -8,12 +8,13 @@ import {
 import axios from 'axios'
 
 const POSTS_URL = 'https://jsonplaceholder.typicode.com/posts'
+const COMMENTS_URL = 'https://jsonplaceholder.typicode.com/comments'
 
 interface Comment {
-  postId: PostType['id']
-  id: number
+  postId: number,
+  id?: number
   name: string
-  email: string
+  email?: string
   body: string
 }
 
@@ -27,6 +28,7 @@ interface PostType {
 
 export interface PostState {
   posts: PostType[]
+  comments: Comment[]
   status: string
   error: any
 }
@@ -40,6 +42,7 @@ interface initialPost {
 
 const initialState: PostState = {
   posts: [],
+  comments: [],
   status: 'idle',
   error: null,
 }
@@ -52,6 +55,18 @@ export const fetchPosts = createAsyncThunk('posts/fetchPosts', async () => {
     return error.message
   }
 })
+
+export const fetchComments = createAsyncThunk(
+  'posts/fetchComments',
+  async () => {
+    try {
+      const response = await axios.get(COMMENTS_URL)
+      return response.data
+    } catch (error: any) {
+      return error.message
+    }
+  }
+)
 
 export const addNewPost = createAsyncThunk(
   'posts/addNewPost',
@@ -118,6 +133,11 @@ export const postSlice = createSlice({
         const loadedPosts = action.payload
         state.posts = state.posts.concat(loadedPosts)
       })
+      .addCase(fetchComments.fulfilled, (state, action) => {
+        state.status = 'succeeded'
+        const comments = action.payload
+        state.comments = state.comments.concat(comments)
+      })
       .addCase(fetchPosts.rejected, (state, action) => {
         state.status = 'failed'
         state.error = action.error.message
@@ -157,6 +177,10 @@ export const getPostsStatus = (state: RootState) => state.posts.status
 export const getPostsError = (state: RootState) => state.posts.error
 export const getPostById = (state: RootState, postId: any) =>
   state.posts.posts.find((post) => post.id === postId)
+
+export const getComments = (state: RootState) => state.posts.comments
+export const getCommentsById = (state: RootState, id: any) =>
+  state.posts.comments.filter((comment) => comment.postId === id)
 
 export const { addPost } = postSlice.actions
 
