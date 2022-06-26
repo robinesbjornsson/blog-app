@@ -1,8 +1,7 @@
 import { useEffect } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import { AppDispatch } from '../../app/store'
 import PostExcerpt from './PostExcerpt'
-
 import {
   fetchPosts,
   getPosts,
@@ -24,13 +23,12 @@ const PostList = () => {
   }, [postsStatus, dispatch])
 
  
-  const renderedPosts = []
 
   let content; 
   if (postsStatus === 'loading') {
     content = <p> "Loading..." </p>
   } else if (postsStatus === 'succeeded') {
-    content = posts.map((post, index) => <PostExcerpt key={index} post={post} />)
+    content = posts.map((post, index) => <PostExcerpt key={index} post={post} />).reverse()
   } else if (postsStatus === 'failed') {
     content = <p>{error}</p>
   }

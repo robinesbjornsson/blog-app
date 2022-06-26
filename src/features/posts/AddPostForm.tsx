@@ -1,29 +1,40 @@
 import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { selectAllUsers } from '../users/userSlice'
-import { addPost } from './postSlice'
+import { useAppDispatch } from '../../app/hooks'
+import { getUsers } from '../users/userSlice'
+import { addNewPost, addPost } from './postSlice'
 
 function AddCustomerForm() {
-  const dispatch = useDispatch()
+  const dispatch = useAppDispatch()
 
   const [title, setTitle] = useState('')
   const [content, setContent] = useState('')
   const [userId, setUserId] = useState('')
+  const [addRequestStatus, setAddRequestStatus] = useState('idle')
 
-  const users = useSelector(selectAllUsers)
+  const users = useSelector(getUsers)
+
+
+  //const canSave = Boolean(title) && Boolean(content) && Boolean(userId)
 
   const handleSubmit = (e: React.SyntheticEvent) => {
     e.preventDefault()
-    if (title && content) {
-      dispatch(addPost(title, content, userId))
+    try {
+      setAddRequestStatus('pending')
+      dispatch(addNewPost({title, body: content, userId}))
+      setTitle('')
+      setContent('')
+      setUserId('')
+    } catch (error) {
+      console.error('failedto save the post', error)
+
+    } finally {
+      setAddRequestStatus('idle')
     }
-    setTitle('')
-    setContent('')
   }
 
-  const canSave = Boolean(title) && Boolean(content) && Boolean(userId)
 
-  const userOptions = users.map((user) => (
+  const userOptions = users.map(user => (
     <option key={user.id} value={user.id}>
       {user.name}
     </option>
@@ -65,7 +76,7 @@ function AddCustomerForm() {
           }}
         />
 
-        <button type='submit' disabled={!canSave}>Add Post</button>
+        <button type='submit'>Add Post</button>
       </form>
     </section>
   )

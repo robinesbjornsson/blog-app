@@ -1,46 +1,38 @@
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import axios from "axios";
 import { RootState } from "../../app/store";
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
-import axios from 'axios';
 
-const USERS_URL = 'https://jsonplaceholder.typicode.com/users'
+const USERS_URL = 'https://jsonplaceholder.typicode.com/users';
 
 interface User {
-  id: string
+  id: string,
   name: string
 }
+interface UserState  {
+  users: User[]
 
-export interface UserState {
-  user: User[]
 }
 
 const initialState: UserState = {
-  user: [
-
-  ],
+  users: [],
 }
 
-export const fetchUsers = createAsyncThunk('posts/fetchUsers', async () => {
-  try {
-    const response = await axios.get(USERS_URL)
-    return [...response.data] //can return response.data without spreading into new array
-  } catch (error: any) {
-    return error.message
-  }
+export const fetchUsers = createAsyncThunk('users/fetchUsers', async () => {
+    const response = await axios.get(USERS_URL);
+    return response.data
 })
 
-export const userSlice = createSlice({
-  name: 'user',
-  initialState,
-  reducers: {},
-  extraReducers(builder) {
-    builder
-      .addCase(fetchUsers.fulfilled, (state, action) => {
-        return action.payload
-      })
-  
-  },
+const usersSlice = createSlice({
+    name: 'users',
+    initialState,
+    reducers: {},
+    extraReducers(builder) {
+        builder.addCase(fetchUsers.fulfilled, (state, action) => {
+          state.users = state.users.concat(action.payload)
+        })
+    }
 })
 
-export const selectAllUsers = (state: RootState) => state.users.user
+export const getUsers = (state: RootState) => state.users.users
 
-export default userSlice.reducer
+export default usersSlice.reducer

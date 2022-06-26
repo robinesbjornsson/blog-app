@@ -1,11 +1,11 @@
 import { useSelector } from 'react-redux'
-import { selectAllUsers } from '../users/userSlice'
+import { getUsers } from '../users/userSlice'
 
 type Props = {
     userId: string
 }
 const PostAuthor = ({userId}: Props) => {
-    const users = useSelector(selectAllUsers)
+    const users = useSelector(getUsers)
 
     const author = users.find(user => user.id === userId);
 

@@ -5,8 +5,8 @@ import {
   nanoid,
   PayloadAction,
 } from '@reduxjs/toolkit'
+import axios from 'axios'
 
-import axios, { AxiosError } from 'axios'
 const POSTS_URL = 'https://jsonplaceholder.typicode.com/posts'
 
 interface Comment {
@@ -21,7 +21,7 @@ interface PostType {
   id: string
   title: string
   content: string
-  userId: any
+  userId?: any
   comments?: Comment[]
 }
 
@@ -40,11 +40,23 @@ const initialState: PostState = {
 export const fetchPosts = createAsyncThunk('posts/fetchPosts', async () => {
   try {
     const response = await axios.get(POSTS_URL)
-    return [...response.data] //can return response.data without spreading into new array
+    return response.data 
   } catch (error: any) {
     return error.message
   }
 })
+
+interface initialPost {
+  title: string,
+  body: string,
+  userId: string
+}
+
+export const addNewPost = createAsyncThunk('posts/addNewPost', async (initialPost: initialPost) => {
+  const response = await axios.post(POSTS_URL, initialPost)
+  return response.data
+})
+
 
 export const postSlice = createSlice({
   name: 'post',
@@ -52,6 +64,7 @@ export const postSlice = createSlice({
   reducers: {
     addPost: {
       reducer(state, action: PayloadAction<PostType>) {
+        console.log('addpost reducer', action.payload)
         state.posts.push(action.payload)
       },
       prepare(title, content, userId) {
@@ -73,12 +86,19 @@ export const postSlice = createSlice({
       })
       .addCase(fetchPosts.fulfilled, (state, action) => {
         state.status = 'succeeded'
-        state.posts = state.posts.concat(action.payload)
+        const loadedPosts = action.payload
+        state.posts = state.posts.concat(loadedPosts)
       })
       .addCase(fetchPosts.rejected, (state, action) => {
         state.status = 'failed'
         state.error = action.error.message
       })
+      .addCase(addNewPost.fulfilled, (state, action) => {
+        action.payload.id = state.posts[state.posts.length - 1].id + 1;
+        action.payload.userId = Number(action.payload.userId)
+        console.log(action.payload)
+        state.posts.push(action.payload)
+    })
   },
 })
 
