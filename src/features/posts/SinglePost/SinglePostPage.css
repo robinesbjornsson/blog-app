@@ -1,0 +1,95 @@
+@media (min-width: 340px) {
+  .single-post {
+    width: 80vw;
+  }
+  .comments-container {
+    margin: 10px;
+  }
+  .comment-card {
+    padding: 20px;
+    margin: 10px;
+    font-size: medium;
+    text-align: left;
+  }
+}
+
+.single-post-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+ 
+}
+.single-post {
+  background-color: azure;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  text-align: left;
+  border: 2px solid black;
+
+}
+
+.single-post p::first-letter {
+  text-transform: capitalize;
+}
+
+.comment-card {
+  background-color: azure;
+  box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
+}
+.comment-card {
+  padding: 20px;
+  margin: 10px;
+  font-size: medium;
+  text-align: left;
+}
+.comment-card h3 {
+  font-size: larger;
+}
+.comment-card p {
+  font-size: medium;
+}
+
+.add-post-form-container,
+.edit-post-form-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 50px;
+}
+
+input,
+select,
+textarea {
+  padding: 10px;
+  margin: 10px;
+  border-radius: 10px;
+  border: 2px solid black;
+  font: inherit;
+  margin-bottom: 1em;
+}
+label {
+  text-align: left;
+  font-size: large;
+  font-weight: 600;
+  margin-left: 10px;
+}
+
+form button {
+  font-size: 20px;
+  font-weight:bold;
+  border: none;
+  background-color: white;
+  padding: 10px;
+  margin: 10px;
+  border-radius: 10px;
+  border: 2px solid black;
+  box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
+}
+
+.delete-post-button {
+  background-color: #ff9393;
+  font-weight: 500;
+}

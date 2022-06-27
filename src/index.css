@@ -5,8 +5,9 @@
 }
 
 html {
-  font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
-  background-color: white;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
+    Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  background-color: hsl(210, 67%, 95%);
   color: #000;
 }
 
@@ -15,70 +16,99 @@ body {
   font-size: 1.5rem;
 }
 
-input,
-textarea,
-button,
-select {
-  font: inherit;
-  margin-bottom: 1em;
-}
 
 header {
+  background-color: whitesmoke;
   padding: 1rem;
   display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  background-color: purple;
-  color: whitesmoke;
+  justify-content: space-around;
+  align-items: center;
+
   position: sticky;
   top: 0;
 }
 
-nav {
+.exit-button-container {
   display: flex;
-  justify-content: flex-end;
+  flex-direction: column;
+  align-items: flex-end;
+  margin-right: 20px;
+  top: 10;
+  margin-top: 20px;
 }
 
-nav ul {
-  list-style-type: none;
+
+.exit-button {
+  text-align: center;
+  font-weight: 300;
+  font-size: 16px;
+  height: 40px;
+  width: 40px;
+}
+.show-users-button {
+  padding: 10px;
+}
+.show-users-button, .exit-button {
+  box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+  background-color: transparent;
+  border-radius: 50px;
+  font-size: large;
+}
+
+.menu-bars {
+  margin-left: 2rem;
+  font-size: 2rem;
+  background: none;
+}
+
+.sidebar {
+  background-color: whitesmoke;
+  border: 2px solid black;
+  width: 300px;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: fixed;
+  top: 0;
+  right: -100%;
+  transition: 850ms;
+}
+
+.sidebar.active {
+  right: 0;
+  transition: 350ms;
+}
+
+.sidebar-user-names {
+  list-style: none;
+  margin-left: 10px;
+
+}
+
+.user-name {
+  font-size: 22px;
+  line-height: 3em;
+  font-weight: 500;
+  border-bottom: 2px solid black;
 }
 
 nav ul li {
   display: inline-block;
   margin-right: 1rem;
-}
-
-nav a, nav a:visited {
-  color: #fff;
   text-decoration: none;
 }
 
-nav a:hover, nav a:focus {
+nav a,
+nav a:visited {
+  color: #000;
+  text-decoration: none;
+}
+
+nav a:hover,
+nav a:focus {
   text-decoration: underline;
-}
-
-main {
-  max-width: 500px;
-  margin: auto;
-}
-
-section {
-  margin-top: 1em;
-}
-
-article {
-  margin: 0.5em;
-  border: 1px solid #000;
-  border-radius: 10px;
-  padding: 1em;
-}
-
-h1 {
-  font-size: 3.5rem;
-}
-
-h2 {
-  margin-bottom: 1rem;
 }
 
 p {
@@ -97,34 +127,69 @@ textarea {
   height: 200px;
 }
 
-.postCredit {
-  font-size: 1rem;
+.post-container {
+  display: grid;
+  grid-column-gap: 30px;
+  grid-row-gap: 30px;
+}
+.post-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+  background-color: #f2f8f9;
+  border-radius: 15px;
+  padding: 32px 24px;
+  margin: 12px;
+  text-decoration: none;
+  overflow: hidden;
+  border: 2px solid black;
+  box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.3);
+}
+.post-card {
+  transition: 350ms;
+}
+.post-card:hover {
+  transform: translate(0, -20px);
+}
+.RouterLink {
+  margin: '1rem';
+  text-decoration: 'none';
+  color: 'blue';
 }
 
-.postCredit a, 
-.postCredit a:visited {
-  margin-right: 0.5rem;
-  color: black;
-}
-
-.postCredit a:hover, 
-.postCredit a:focus {
-  color: hsla(0, 0%, 0%, 0.75);
-}
-
-.excerpt {
-  font-style: italic;
-}
-
-.reactionButton {
-  margin: 0 0.25em 0 0;
-  background: transparent;
-  border: none;
-  color: #000;
-  font-size: 1rem;
+.post-card a {
+  color: inherit;
 }
 
 .deleteButton {
   background-color: palevioletred;
   color: white;
+}
+
+@media (min-width: 340px) {
+  .post-container {
+    padding: 5vw;
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(1, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 768px) {
+  .post-container{
+    padding: 5vw;
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 1024px) {
+  .post-container {
+    padding: 5vw;
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
 }

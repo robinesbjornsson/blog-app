@@ -1,9 +1,9 @@
+import './SinglePostPage.css'
 import { useState } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
-import { useAppDispatch, useAppSelector } from '../../app/hooks'
-import { deletePost, getPostById, updatePost } from './postSlice'
-
-import { getUsers } from '../users/userSlice'
+import { useAppDispatch, useAppSelector } from '../../../app/hooks'
+import { deletePost, getPostById, updatePost } from '../postSlice'
+import { getUsers } from '../../users/userSlice'
 
 const EditPostForm = () => {
   const { postId } = useParams()
@@ -31,7 +31,7 @@ const EditPostForm = () => {
     e.preventDefault()
     try {
       setRequestStatus('pending')
-      console.log('dispatch from editpostform', post.id, userId) //98 8
+
       dispatch(
         updatePost({ id: post.id, title, body: content, userId })
       ).unwrap()
@@ -67,7 +67,7 @@ const EditPostForm = () => {
   ))
 
   return (
-    <section>
+    <section className='edit-post-form-container'>
       <form onSubmit={onSavePostClicked}>
         <label htmlFor='postTitle'> Post Title: </label>
         <input
@@ -103,7 +103,9 @@ const EditPostForm = () => {
         />
 
         <button type='submit'>Save Post</button>
-        <button onClick={onDeletePostClicked}>Delete Post</button>
+        <button onClick={onDeletePostClicked} className='delete-post-button'>
+          Delete Post
+        </button>
       </form>
     </section>
   )

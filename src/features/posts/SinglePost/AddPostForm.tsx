@@ -1,10 +1,10 @@
+import './SinglePostPage.css'
 import { useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
-import { useAppDispatch } from '../../app/hooks'
-import { getUsers } from '../users/userSlice'
-import { addNewPost, addPost } from './postSlice'
-
+import { useAppDispatch } from '../../../app/hooks'
+import { getUsers } from '../../users/userSlice'
+import { addNewPost } from '../postSlice'
 function AddCustomerForm() {
   const dispatch = useAppDispatch()
 
@@ -22,28 +22,26 @@ function AddCustomerForm() {
     e.preventDefault()
     try {
       setAddRequestStatus('pending')
-      dispatch(addNewPost({title, body: content, userId}))
+      dispatch(addNewPost({ title, body: content, userId }))
       setTitle('')
       setContent('')
       setUserId('')
       navigate('/')
     } catch (error) {
       console.error('failedto save the post', error)
-
     } finally {
       setAddRequestStatus('idle')
     }
   }
 
-
-  const userOptions = users.map(user => (
+  const userOptions = users.map((user) => (
     <option key={user.id} value={user.id}>
       {user.name}
     </option>
   ))
 
   return (
-    <section>
+    <section className='add-post-form-container'>
       <form onSubmit={handleSubmit}>
         <label htmlFor='postTitle'> Post Title: </label>
         <input
@@ -78,7 +76,9 @@ function AddCustomerForm() {
           }}
         />
 
-        <button type='submit'>Add Post</button>
+        <button type='submit' className='save-post-button'>
+          Save Post
+        </button>
       </form>
     </section>
   )
