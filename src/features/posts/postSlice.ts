@@ -35,8 +35,8 @@ export interface PostState {
 
 interface initialPost {
   id?: any
-  title: any
-  body: any
+  title: string
+  body: string
   userId: any
 }
 
@@ -179,7 +179,7 @@ export const getPostById = (state: RootState, postId: any) =>
   state.posts.posts.find((post) => post.id === postId)
 
 export const getComments = (state: RootState) => state.posts.comments
-export const getCommentsById = (state: RootState, id: any) =>
+export const getCommentsById = (state: RootState, id: number) =>
   state.posts.comments.filter((comment) => comment.postId === id)
 
 export const { addPost } = postSlice.actions

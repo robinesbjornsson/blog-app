@@ -15,13 +15,13 @@ const Header = () => {
   }
   return (
     <header className='header'>
-      <h1> Redux Blog </h1>
       <nav>
+        <h1>
+          <Link to='/'>Redux Blog</Link>
+        </h1>
         <ul>
           <li>
-            <button onClick={toggleSwitchHandler} className='show-users-button'>
-              Show Users
-            </button>
+            <a onClick={toggleSwitchHandler}>Users</a>
           </li>
           <li>
             <Link to='/'>Home</Link>

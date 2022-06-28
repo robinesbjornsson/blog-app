@@ -1,7 +1,6 @@
 import { useAppDispatch, useAppSelector } from '../app/hooks'
 import { toggleOff, toggleOn } from '../features/users/SidebarSlice'
 import { getUsers } from '../features/users/userSlice'
-import '../index.css'
 
 const Sidebar = () => {
   const users = useAppSelector(getUsers)

@@ -37,7 +37,7 @@ const EditPostForm = () => {
       ).unwrap()
       setTitle('')
       setContent('')
-      setUserId('')
+      setUserId(userId)
       navigate(`/post/${postId}`)
     } catch (error) {
       console.error('failedto save the post', error)
@@ -52,7 +52,7 @@ const EditPostForm = () => {
       dispatch(deletePost({ id: post.id })).unwrap()
       setTitle('')
       setContent('')
-      setUserId('')
+      setUserId(userId)
       navigate('/')
     } catch (err) {
       console.error('Failed to delete the post', err)

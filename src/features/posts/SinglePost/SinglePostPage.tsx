@@ -43,8 +43,8 @@ const SinglePostPage = () => {
             <PostAuthor userId={post.userId} />
           </p>
           <Link to={`/post/edit/${post.id}`}>
-            {' '}
-            <button> Edit Post</button>{' '}
+     
+            <button className='edit-post-button'> Edit Post</button>
           </Link>
         </div>
 
