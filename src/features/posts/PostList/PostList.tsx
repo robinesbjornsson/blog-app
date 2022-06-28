@@ -1,13 +1,7 @@
 import { useSelector } from 'react-redux'
-import { AppDispatch } from '../../../app/store'
 import PostExcerpt from './PostCard'
-import CommentCard from '../SinglePost/CommentCard'
-import {
-  getPosts,
-  getPostsStatus,
-  getPostsError,
-  getComments,
-} from '../postSlice'
+import './postList.css'
+import { getPosts, getPostsStatus, getPostsError } from '../postSlice'
 const PostList = () => {
   const posts = useSelector(getPosts)
   const postsStatus = useSelector(getPostsStatus)

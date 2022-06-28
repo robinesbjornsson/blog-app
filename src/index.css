@@ -23,10 +23,26 @@ header {
   border-bottom: 2px solid black;
   position: sticky;
   top: 0;
+  z-index: 100;
 }
 
 header h1 {
   font-size: larger;
+}
+
+.show-users-button {
+  padding: 10px;
+}
+.show-users-button,
+.exit-button {
+  box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+  background-color: black;
+  color: white;
+  font-weight: 200;
+  border-radius: 50px;
+  border: 2px solid black;
+  font-size: large;
 }
 
 .exit-button-container {
@@ -45,26 +61,6 @@ header h1 {
   height: 40px;
   width: 40px;
 }
-.show-users-button {
-  padding: 10px;
-}
-.show-users-button,
-.exit-button {
-  box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
-  cursor: pointer;
-  background-color: black;
-  color: white;
-  font-weight: 200;
-  border-radius: 50px;
-  border: 2px solid black;
-  font-size: large;
-}
-
-.menu-bars {
-  margin-left: 2rem;
-  font-size: 2rem;
-  background: none;
-}
 
 .sidebar {
   background-color: whitesmoke;
@@ -76,6 +72,7 @@ header h1 {
   justify-content: center;
   position: fixed;
   top: 0;
+  z-index: 999;
   right: -100%;
   transition: 850ms;
 }
@@ -101,12 +98,9 @@ nav {
   padding: 15px;
 }
 nav ul {
-  margin-left: auto;
-  margin-right: auto;
   width: 100%;
   display: flex;
   align-items: center;
-
 }
 nav ul li {
   display: inline-block;
@@ -153,34 +147,19 @@ textarea {
   flex-direction: column;
   justify-content: space-between;
   height: 100%;
-  background-color: #f2f8f9;
   border-radius: 15px;
   padding: 32px 24px;
   margin: 12px;
   text-decoration: none;
   overflow: hidden;
   border: 2px solid black;
+  background-color: #f2f8f9;
   box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.3);
-}
-.post-card {
   transition: 350ms;
 }
+
 .post-card:hover {
   transform: translate(0, -20px);
-}
-.RouterLink {
-  margin: '1rem';
-  text-decoration: 'none';
-  color: 'blue';
-}
-
-.post-card a {
-  color: inherit;
-}
-
-.deleteButton {
-  background-color: palevioletred;
-  color: white;
 }
 
 @media (min-width: 340px) {
@@ -188,7 +167,6 @@ textarea {
     width: 100%;
     display: flex;
     justify-content: space-between;
-
   }
   .post-container {
     padding: 5vw;

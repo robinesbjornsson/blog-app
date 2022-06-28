@@ -27,22 +27,26 @@ const EditPostForm = () => {
     )
   }
 
+  const canSave = [title, content, userId].every(Boolean) && requestStatus === 'idle';
+
   const onSavePostClicked = (e: React.SyntheticEvent) => {
     e.preventDefault()
-    try {
-      setRequestStatus('pending')
-
-      dispatch(
-        updatePost({ id: post.id, title, body: content, userId })
-      ).unwrap()
-      setTitle('')
-      setContent('')
-      setUserId(userId)
-      navigate(`/post/${postId}`)
-    } catch (error) {
-      console.error('failedto save the post', error)
-    } finally {
-      setRequestStatus('idle')
+    if (canSave) {
+      try {
+        setRequestStatus('pending')
+  
+        dispatch(
+          updatePost({ id: post.id, title, body: content, userId })
+        ).unwrap()
+        setTitle('')
+        setContent('')
+        setUserId(userId)
+        navigate(`/post/${postId}`)
+      } catch (error) {
+        console.error('failedto save the post', error)
+      } finally {
+        setRequestStatus('idle')
+      }
     }
   }
 
@@ -102,7 +106,7 @@ const EditPostForm = () => {
           }}
         />
 
-        <button type='submit'>Save Post</button>
+        <button type='submit' disabled={!canSave}>Save Post</button>
         <button onClick={onDeletePostClicked} className='delete-post-button'>
           Delete Post
         </button>

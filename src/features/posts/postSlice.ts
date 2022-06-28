@@ -11,7 +11,7 @@ const POSTS_URL = 'https://jsonplaceholder.typicode.com/posts'
 const COMMENTS_URL = 'https://jsonplaceholder.typicode.com/comments'
 
 interface Comment {
-  postId: number,
+  postId: number
   id?: number
   name: string
   email?: string
@@ -71,8 +71,12 @@ export const fetchComments = createAsyncThunk(
 export const addNewPost = createAsyncThunk(
   'posts/addNewPost',
   async (initialPost: initialPost) => {
-    const response = await axios.post(POSTS_URL, initialPost)
-    return response.data
+    try {
+      const response = await axios.post(POSTS_URL, initialPost)
+      return response.data
+    } catch (error: any) {
+      return error.message
+    }
   }
 )
 
@@ -80,11 +84,9 @@ export const updatePost = createAsyncThunk(
   'posts/updatePost',
   async (initialPost: initialPost['id']) => {
     const { id } = initialPost
-
     try {
       const response = await axios.put(`${POSTS_URL}/${id}`, initialPost)
       return response.data
-      console.log(response.data)
     } catch (err) {
       return initialPost
     }
@@ -95,7 +97,6 @@ export const deletePost = createAsyncThunk(
   'posts/deletePost',
   async (initialPost: initialPost['id']) => {
     const { id } = initialPost
-
     const response = await axios.delete(`${POSTS_URL}/${id}`)
     if (response?.status === 200) return initialPost
     return `${response?.status}: ${response?.statusText}`
@@ -108,7 +109,6 @@ export const postSlice = createSlice({
   reducers: {
     addPost: {
       reducer(state, action: PayloadAction<PostType>) {
-        console.log('addpost reducer', action.payload)
         state.posts.push(action.payload)
       },
       prepare(title, body, userId) {
@@ -157,12 +157,10 @@ export const postSlice = createSlice({
         const { id } = action.payload
         const posts = state.posts.filter((post) => post.id !== id)
         state.posts = [...posts, action.payload]
-        console.log(action.payload)
       })
       .addCase(deletePost.fulfilled, (state, action) => {
         if (!action.payload?.id) {
           console.log('Delete could not complete')
-          console.log(action.payload)
           return
         }
         const { id } = action.payload

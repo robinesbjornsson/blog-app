@@ -8,20 +8,18 @@ const initialState: sideBarState = {
   active: false,
 }
 
-
-
 const toggleSideBarSlice = createSlice({
-    name: 'alarm',
-    initialState: initialState,
-    reducers: {
-      toggleOn: (state = initialState) => {
-        state.active = true;
-      },
-      toggleOff: (state = initialState) => {
-        state.active = false;
-      }
-    }   
-});
+  name: 'sidebar',
+  initialState: initialState,
+  reducers: {
+    toggleOn: (state = initialState) => {
+      state.active = true
+    },
+    toggleOff: (state = initialState) => {
+      state.active = false
+    },
+  },
+})
 
-export const {toggleOn, toggleOff} = toggleSideBarSlice.actions;
-export default toggleSideBarSlice.reducer;
+export const { toggleOn, toggleOff } = toggleSideBarSlice.actions
+export default toggleSideBarSlice.reducer

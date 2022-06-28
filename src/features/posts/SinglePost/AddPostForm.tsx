@@ -16,10 +16,11 @@ function AddCustomerForm() {
   const users = useSelector(getUsers)
 
   const navigate = useNavigate()
-  //const canSave = Boolean(title) && Boolean(content) && Boolean(userId)
+  const canSave = [title, content, userId].every(Boolean) && addRequestStatus === 'idle';
 
   const handleSubmit = (e: React.SyntheticEvent) => {
     e.preventDefault()
+   if(canSave) {
     try {
       setAddRequestStatus('pending')
       dispatch(addNewPost({ title, body: content, userId }))
@@ -32,6 +33,7 @@ function AddCustomerForm() {
     } finally {
       setAddRequestStatus('idle')
     }
+   } 
   }
 
   const userOptions = users.map((user) => (
@@ -76,7 +78,7 @@ function AddCustomerForm() {
           }}
         />
 
-        <button type='submit' className='save-post-button'>
+        <button type='submit' className='save-post-button' disabled={!canSave}>
           Save Post
         </button>
       </form>

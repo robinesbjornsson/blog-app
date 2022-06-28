@@ -1,0 +1,22 @@
+@media (min-width: 340px) {
+  .post-container {
+    padding: 5vw;
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(1, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 768px) {
+  .post-container {
+    padding: 5vw;
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+.post-card-action-area {
+    text-decoration: none;
+    color: black
+}
