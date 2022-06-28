@@ -12,6 +12,9 @@
   }
 }
 
+
+
+
 .single-post-container {
   width: 100%;
   margin-top: 50px;
@@ -81,7 +84,7 @@ form button,
   border: none;
   background-color: white;
   padding: 10px;
-  margin: 10px;
+  margin-top: 10px;
   border-radius: 10px;
   border: 2px solid black;
   box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);

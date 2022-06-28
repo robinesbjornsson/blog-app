@@ -7,15 +7,15 @@ import { getUsers } from '../../users/userSlice'
 import { addNewPost } from '../postSlice'
 function AddCustomerForm() {
   const dispatch = useAppDispatch()
+  const navigate = useNavigate()
 
   const [title, setTitle] = useState('')
+  const users = useSelector(getUsers)
   const [content, setContent] = useState('')
   const [userId, setUserId] = useState('')
   const [addRequestStatus, setAddRequestStatus] = useState('idle')
 
-  const users = useSelector(getUsers)
 
-  const navigate = useNavigate()
   const canSave = [title, content, userId].every(Boolean) && addRequestStatus === 'idle';
 
   const handleSubmit = (e: React.SyntheticEvent) => {
