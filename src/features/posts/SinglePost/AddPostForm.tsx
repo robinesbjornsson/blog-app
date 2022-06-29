@@ -9,8 +9,9 @@ function AddCustomerForm() {
   const dispatch = useAppDispatch()
   const navigate = useNavigate()
 
-  const [title, setTitle] = useState('')
   const users = useSelector(getUsers)
+  
+  const [title, setTitle] = useState('')
   const [content, setContent] = useState('')
   const [userId, setUserId] = useState('')
   const [addRequestStatus, setAddRequestStatus] = useState('idle')

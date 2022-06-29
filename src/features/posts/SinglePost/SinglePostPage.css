@@ -1,5 +1,4 @@
 @media (min-width: 340px) {
-
   .comment-card {
     padding: 20px;
     margin: 20px;
@@ -11,9 +10,6 @@
     padding: 20px;
   }
 }
-
-
-
 
 .single-post-container {
   width: 100%;
